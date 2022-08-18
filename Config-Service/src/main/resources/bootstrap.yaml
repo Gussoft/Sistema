@@ -1,0 +1,14 @@
+
+server:
+  port: 8094
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Gussoft/Sistema
+          default-label: config-server
+          search-paths: Config-Data
+  application:
+    name: Config-Service

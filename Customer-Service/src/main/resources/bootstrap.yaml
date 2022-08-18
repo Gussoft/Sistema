@@ -1,7 +1,4 @@
 
-server:
-  port: 8092
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/micros?serverTimezone=UTC
@@ -12,3 +9,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  application:
+    name: Customer-Service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8091

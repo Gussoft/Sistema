@@ -10,7 +10,7 @@ spring:
       ddl-auto: update
     show-sql: true
   application:
-    name: Product-Service
+    name: product-service
   cloud:
     config:
       enabled: true

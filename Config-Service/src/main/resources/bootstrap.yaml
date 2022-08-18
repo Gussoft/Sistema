@@ -6,9 +6,12 @@ spring:
   cloud:
     config:
       server:
+        native:
+          search-locations: classpath:/
         git:
           uri: https://github.com/Gussoft/Sistema
           default-label: config-server
-          search-paths: Config-Data
+          search-paths: config-data
+      profile: native
   application:
-    name: Config-Service
+    name: config-service

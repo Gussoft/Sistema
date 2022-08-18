@@ -10,8 +10,8 @@ spring:
       ddl-auto: update
     show-sql: true
   application:
-    name: Customer-Service
+    name: customer-service
   cloud:
     config:
       enabled: true
-      uri: http://localhost:8091
+      uri: http://localhost:8081

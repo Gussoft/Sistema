@@ -1,5 +1,11 @@
 
 spring:
+  application:
+    name: customer-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8094
   datasource:
     url: jdbc:mysql://localhost:3306/micros?serverTimezone=UTC
     username: root
@@ -9,9 +15,3 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-  application:
-    name: customer-service
-  cloud:
-    config:
-      enabled: true
-      uri: http://localhost:8094

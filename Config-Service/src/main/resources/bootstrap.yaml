@@ -8,7 +8,7 @@ spring:
       server:
         git:
           uri: https://github.com/Gussoft/Sistema
-          default-label: eureka
+          default-label: feing
           search-paths: Config-Data
   application:
     name: config-service

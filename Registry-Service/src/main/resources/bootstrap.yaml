@@ -1,0 +1,10 @@
+
+spring:
+  application:
+    name: registry-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8094
+      username: guss
+      password: acm1pt

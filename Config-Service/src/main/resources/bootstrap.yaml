@@ -12,3 +12,7 @@ spring:
           search-paths: Config-Data
   application:
     name: config-service
+  security:
+    user:
+      name: guss
+      password: acm1pt

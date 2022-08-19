@@ -6,12 +6,5 @@ spring:
     config:
       enabled: true
       uri: http://localhost:8094
-  datasource:
-    url: jdbc:mysql://localhost:3306/micros?serverTimezone=UTC
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+      username: guss
+      password: acm1pt

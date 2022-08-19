@@ -1,6 +1,11 @@
 package com.gussoft.shoppingservice.service.impl;
 
+import com.gussoft.shoppingservice.client.CustomerClient;
+import com.gussoft.shoppingservice.client.ProductClient;
 import com.gussoft.shoppingservice.models.Invoice;
+import com.gussoft.shoppingservice.models.InvoiceItem;
+import com.gussoft.shoppingservice.models.dto.Customer;
+import com.gussoft.shoppingservice.models.dto.Product;
 import com.gussoft.shoppingservice.repository.InvoiceItemsRepository;
 import com.gussoft.shoppingservice.repository.InvoiceRepository;
 import com.gussoft.shoppingservice.service.InvoiceService;
@@ -9,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -19,6 +25,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Autowired
     private InvoiceItemsRepository irepo;
+
+    @Autowired
+    CustomerClient client;
+
+    @Autowired
+    ProductClient product;
 
     @Override
     public List<Invoice> findInvoiceAll() {
@@ -32,7 +44,11 @@ public class InvoiceServiceImpl implements InvoiceService {
             return data;
         }
         invoice.setState("Created");
-        return repo.save(invoice);
+        data = repo.save(invoice);
+        data.getItems().forEach(invoiceItem -> {
+            product.updateStockProduct(invoiceItem.getProductId(), (int) (invoiceItem.getQuantity() * -1));
+        });
+        return data;
     }
 
     @Override
@@ -61,6 +77,17 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice getInvoice(Long id) {
-        return repo.findById(id).orElse(null);
+        Invoice data = repo.findById(id).orElse(null);
+        if (data != null) {
+            Customer customer = client.getCustomer(data.getCustomerId()).getBody();
+            data.setCustomer(customer);
+            List<InvoiceItem> itemsList = data.getItems().stream().map(item -> {
+               Product pro = product.getProduct(item.getProductId()).getBody();
+               item.setProduct(pro);
+               return item;
+            }).collect(Collectors.toList());
+            data.setItems(itemsList);
+        }
+        return data;
     }
 }
